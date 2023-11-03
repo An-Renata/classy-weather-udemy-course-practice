@@ -6,7 +6,6 @@ export default function App() {
   const [isLoading, setIsLoading] = useState(false);
   const [displayLocation, setDisplayLocation] = useState("");
   const [weather, setWeather] = useState({});
-
   // Set user input value into location state
   function handleLocationInput(e) {
     setLocation(e.target.value);
@@ -45,6 +44,9 @@ export default function App() {
         const weatherData = await weatherRes.json();
         // update state by storing the return value to weather state
         setWeather(weatherData.daily);
+        //!............................
+        // set user input location to the local storage
+        localStorage.setItem("location", location);
       } catch (err) {
         console.error(err);
       } finally {
@@ -52,10 +54,7 @@ export default function App() {
       }
     }
     fetWeather();
-    // set user input location to the local storage
-    localStorage.setItem("location", location);
   }, [location]); // useEffect is called each time location variable changes.
-
   return (
     <div className="app">
       <h1>Classy Weather</h1>
